@@ -28,13 +28,11 @@ package egovframework.com.cmm.web;
  */
 
 import java.lang.reflect.Method;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
-import egovframework.com.cmm.IncludedCompInfoVO;
-import egovframework.com.cmm.LoginVO;
-import egovframework.com.cmm.annotation.IncludedInfo;
-import egovframework.com.cmm.util.EgovUserDetailsHelper;
+import javax.annotation.Resource;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -46,8 +44,18 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import egovframework.com.cmm.EgovMessageSource;
+import egovframework.com.cmm.IncludedCompInfoVO;
+import egovframework.com.cmm.LoginVO;
+import egovframework.com.cmm.annotation.IncludedInfo;
+import egovframework.com.cmm.service.EgovProperties;
+import egovframework.com.cmm.util.EgovUserDetailsHelper;
+
 @Controller
 public class EgovComIndexController implements ApplicationContextAware, InitializingBean {
+	
+	@Resource(name = "egovMessageSource")
+	private EgovMessageSource egovMessageSource;
 
 	private ApplicationContext applicationContext;
 
@@ -89,6 +97,44 @@ public class EgovComIndexController implements ApplicationContextAware, Initiali
 
 	@RequestMapping("/EgovLeft.do")
 	public String setLeftMenu(ModelMap model) {
+		
+		// ko or ko_kr  
+		System.out.println(egovMessageSource.getMessage("button.wrkend"));
+		System.out.println(egovMessageSource.getMessage("button.wrkend"));
+		System.out.println(egovMessageSource.getMessage("button.wrkend"));
+		System.out.println(egovMessageSource.getMessage("button.wrkend"));
+		System.out.println(egovMessageSource.getMessage("button.wrkend"));
+		System.out.println(egovMessageSource.getMessage("button.wrkend"));
+		System.out.println(egovMessageSource.getMessage("button.wrkend"));
+		System.out.println(egovMessageSource.getMessage("button.wrkend"));
+		System.out.println(egovMessageSource.getMessage("button.wrkend"));
+		System.out.println(egovMessageSource.getMessage("button.wrkend"));
+		
+		System.out.println(EgovProperties.getProperty("Globals.DriverClassName"));
+		System.out.println(EgovProperties.getProperty("Globals.UserName"));
+		System.out.println(EgovProperties.getProperty("Globals.Globals.Password"));
+		System.out.println(EgovProperties.getProperty("*********************************************"));
+		
+		LOGGER.debug("###############인증여부booleanValue: {}", EgovUserDetailsHelper.isAuthenticated().booleanValue());
+		LOGGER.debug("###############인증여부isAuthenticated: {}", EgovUserDetailsHelper.isAuthenticated());
+		//사용자 인증여부
+		if (EgovUserDetailsHelper.isAuthenticated().booleanValue()) {
+			
+			// 사용자 로그인 정보
+			LoginVO loginInfo = (LoginVO) EgovUserDetailsHelper.getAuthenticatedUser();
+			
+			
+			LOGGER.debug("#####################사용자아이디 : {}", loginInfo.getId());
+			System.out.println("############################" + loginInfo.getPassword());
+			System.out.println("############################" + loginInfo.getOrgnztNm());
+			
+			// 사용자 권한 리스트
+			List<String> auths = EgovUserDetailsHelper.getAuthorities();
+			
+			for (String auth : auths) {
+				System.out.println(String.format("#####%s 사용자권한: %s", loginInfo.getName(), auth));
+			}
+		}
 
 		/* 최초 한 번만 실행하여 map에 저장해 놓는다. */
 		if (map == null) {
@@ -112,6 +158,7 @@ public class EgovComIndexController implements ApplicationContextAware, Initiali
 						zooVO.setName(annotation.name());
 						zooVO.setOrder(annotation.order());
 						zooVO.setGid(annotation.gid());
+						zooVO.setTitle(annotation.title());
 
 						rmAnnotation = methods[i].getAnnotation(RequestMapping.class);
 						if ("".equals(annotation.listUrl()) && rmAnnotation != null) {
@@ -144,6 +191,7 @@ public class EgovComIndexController implements ApplicationContextAware, Initiali
 						zooVO.setName(annotation.name());
 						zooVO.setOrder(annotation.order());
 						zooVO.setGid(annotation.gid());
+						zooVO.setTitle(annotation.title());
 						/*
 						 * 목록형 조회를 위한 url 매핑은 @IncludedInfo나 @RequestMapping에서 가져온다
 						 */

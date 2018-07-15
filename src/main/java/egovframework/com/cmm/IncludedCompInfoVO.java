@@ -22,6 +22,7 @@ public class IncludedCompInfoVO {
 	private String listUrl;
 	private int order;
 	private int gid;
+	private String title;
 	
 	public String getName() {
 		return name;
@@ -46,5 +47,11 @@ public class IncludedCompInfoVO {
 	}
 	public void setGid(int gid) {
 		this.gid = gid;
+	}
+	public String getTitle() {
+		return title;
+	}
+	public void setTitle(String title) {
+		this.title = title;
 	}
 }

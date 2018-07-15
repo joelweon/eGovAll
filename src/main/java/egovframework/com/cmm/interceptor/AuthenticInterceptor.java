@@ -41,14 +41,23 @@ public class AuthenticInterceptor extends HandlerInterceptorAdapter {
 
 		LoginVO loginVO = (LoginVO) EgovUserDetailsHelper.getAuthenticatedUser();
 
-		if(loginVO != null){
+/*		if(loginVO != null){
 			return true;
 		} else if(!isPermittedURL){
 				ModelAndView modelAndView = new ModelAndView("redirect:/uat/uia/egovLoginUsr.do");
 				throw new ModelAndViewDefiningException(modelAndView);
 			}else{
 				return true;
-			}
+			}*/
+		
+		if(EgovUserDetailsHelper.isAuthenticated().booleanValue()) {
+			return true;
+		} else if (!isPermittedURL) {
+			ModelAndView modelAndView = new ModelAndView("redirect:/uat/uia/egovLoginUsr.do");
+			throw new ModelAndViewDefiningException(modelAndView);
+		} else {
+			return true;
+		}
 	}
 
 }

@@ -11,9 +11,9 @@
         </property>
     </bean>
 
-	<!-- DataSource -->
-	<alias name="dataSource-${Globals.DbType}" alias="egov.dataSource"/>
-    <alias name="dataSource-${Globals.DbType}" alias="dataSource"/>
+	<!-- DataSource 선택해서 사용 -->
+	<alias name="dataSource-${Globals.DbType}" alias="egov.dataSource"/><!-- 예전 버전 소스 -->
+    <alias name="dataSource-${Globals.DbType}" alias="dataSource"/><!-- 현재 사용하는 소스 -->
 
 	<!-- MySQL -->
 	<bean id="dataSource-mysql" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">

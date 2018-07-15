@@ -22,6 +22,7 @@
     </properties>
 
     <repositories>
+        <!-- 내부망을 사용하면 하단 레파지토리는 쓰지않음. -->
         <repository>
             <id>mvn2</id>
             <url>http://repo1.maven.org/maven2/</url>
@@ -50,6 +51,17 @@
 			</releases>
 			<snapshots>
 				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+		<!-- 내부망 설정 -->
+		<repository>
+			<id>public</id>
+			<url>http://osg.iptime.org/nexus/content/groups/public/</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
 			</snapshots>
 		</repository>
     </repositories>
