@@ -1,0 +1,12 @@
+# 사설 넥서스서버 - 폐쇄망에서 jar파일 받아오기
+http://osg.iptime.org/nexus
+http://osg.iptime.org/nexus/content/groups/public/
+
+# isAuth만 사용하면 간혹 에러 발생함.
+EgovUserDetailsHelper.isAuthenticated().booleanValue();
+
+# 버퍼 안쓰는 추세. 더 많이 쓸 수 있는 빌더로 권장함.
+
+# 문자열 + 사용하지말고 String.format()으로 사용.
+
+# SSO 없어지는 추세. 오픈소스인 인증서버 구축해서 사용가능
